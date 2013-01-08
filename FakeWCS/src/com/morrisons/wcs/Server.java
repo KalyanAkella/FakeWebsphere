@@ -1,11 +1,8 @@
-package com.morrisons.server;
+package com.morrisons.wcs;
 
-import com.morrisons.handlers.ESpotHandler;
-import com.morrisons.handlers.Response;
-import com.morrisons.handlers.WCSHandler;
+import com.morrisons.wcs.espots.ESpotHandler;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
 import javax.servlet.ServletException;
@@ -15,9 +12,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.morrisons.handlers.Request.fromQueryString;
+import static com.morrisons.wcs.Request.fromQueryString;
 
-public class WCS extends AbstractHandler {
+public class Server extends AbstractHandler {
 
   private static final Map<String, WCSHandler> handlerMap;
   private static final ObjectMapper objectMapper;
@@ -41,8 +38,8 @@ public class WCS extends AbstractHandler {
   }
 
   public static void main(String[] args) throws Exception {
-    Server server = new Server(9876);
-    server.setHandler(new WCS());
+    org.eclipse.jetty.server.Server server = new org.eclipse.jetty.server.Server(9876);
+    server.setHandler(new Server());
     server.start();
     server.join();
   }

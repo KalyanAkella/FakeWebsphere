@@ -1,4 +1,4 @@
-package com.morrisons.handlers;
+package com.morrisons.wcs;
 
 public class Response {
   public Object body;

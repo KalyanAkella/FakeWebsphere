@@ -1,4 +1,4 @@
-package com.morrisons.handlers.data;
+package com.morrisons.wcs.espots;
 
 import java.util.List;
 

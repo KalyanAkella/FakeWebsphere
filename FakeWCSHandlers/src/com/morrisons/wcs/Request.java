@@ -1,4 +1,4 @@
-package com.morrisons.handlers;
+package com.morrisons.wcs;
 
 import java.util.HashMap;
 import java.util.Map;

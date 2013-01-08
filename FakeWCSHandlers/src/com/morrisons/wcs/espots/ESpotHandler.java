@@ -1,8 +1,8 @@
-package com.morrisons.handlers;
+package com.morrisons.wcs.espots;
 
-import com.morrisons.handlers.data.Content;
-import com.morrisons.handlers.data.Espot;
-import com.morrisons.handlers.data.ESpotResponse;
+import com.morrisons.wcs.Request;
+import com.morrisons.wcs.Response;
+import com.morrisons.wcs.WCSHandler;
 
 import java.util.HashMap;
 import java.util.Map;
