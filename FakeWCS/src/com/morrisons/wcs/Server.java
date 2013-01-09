@@ -1,5 +1,6 @@
 package com.morrisons.wcs;
 
+import com.morrisons.wcs.addresses.UserAddressesHandler;
 import com.morrisons.wcs.espots.ESpotHandler;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.eclipse.jetty.server.Request;
@@ -12,7 +13,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.morrisons.wcs.Request.fromQueryString;
+import static com.morrisons.wcs.Request.fromRequestParams;
 
 public class Server extends AbstractHandler {
 
@@ -23,17 +24,17 @@ public class Server extends AbstractHandler {
     objectMapper = new ObjectMapper();
     handlerMap = new HashMap<String, WCSHandler>();
     handlerMap.put("/ESpotHandler", new ESpotHandler());
+    handlerMap.put("/UserAddressesHandler", new UserAddressesHandler());
   }
 
   @Override
-  public void handle(String target, Request request, HttpServletRequest httpServletRequest,
+  public void handle(String target, Request baseRequest, HttpServletRequest request,
                      HttpServletResponse httpServletResponse) throws IOException, ServletException {
     WCSHandler wcsHandler = handlerMap.get(target);
-    String queryString = httpServletRequest.getQueryString();
-    Response response = wcsHandler.handle(fromQueryString(queryString));
+    Response response = wcsHandler.handle(fromRequestParams(request.getQueryString(), request.getParameterMap()));
     httpServletResponse.setContentType("application/json");
-    httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-    request.setHandled(true);
+    httpServletResponse.setStatus(response.statusCode);
+    baseRequest.setHandled(true);
     httpServletResponse.getWriter().println(objectMapper.writeValueAsString(response.body));
   }
 

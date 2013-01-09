@@ -79,6 +79,6 @@ public class ESpotHandler implements WCSHandler {
     eSpotResponse.resultsFound = 1;
     eSpotResponse.maxResults = 1;
     eSpotResponse.espot = espot;
-    return new Response(eSpotResponse);
+    return new Response(200, eSpotResponse);
   }
 }

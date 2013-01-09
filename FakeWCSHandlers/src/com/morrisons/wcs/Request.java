@@ -18,13 +18,30 @@ public class Request {
     queryParameters.put(key, value);
   }
 
-  public static Request fromQueryString(String queryString) {
-    String[] params = queryString.split("&");
+  public static Request fromRequestParams(String queryString, Map<String, String[]> parameterMap) {
     Request request = new Request();
+    request.setFromQueryParams(queryString);
+    request.setFromParameterMap(parameterMap);
+    return request;
+  }
+
+  private void setFromParameterMap(Map<String, String[]> parameterMap) {
+    if (parameterMap == null) return;
+    for (String paramKey : parameterMap.keySet()) {
+      put(paramKey, parameterMap.get(paramKey)[0]);
+    }
+  }
+
+  private void setFromQueryParams(String queryString) {
+    if (queryString == null) return;
+    String[] params = queryString.split("&");
     for (String param : params) {
       String[] comps = param.split("=");
-      request.put(comps[0], comps[1]);
+      put(comps[0], comps[1]);
     }
-    return request;
+  }
+
+  public boolean contains(String key) {
+    return queryParameters.containsKey(key);
   }
 }
