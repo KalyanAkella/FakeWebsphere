@@ -11,23 +11,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class UserAddressesHandler implements WCSHandler {
 
   private static Map<String, Address> addressMap = new HashMap<String, Address>();
-  private static Map<String, Integer> addressIds = new HashMap<String, Integer>();
   private static final AtomicInteger addressID;
 
   static {
     addressID = new AtomicInteger(0);
-  }
-
-  public Addresses getAddresses(Request request) {
-/*
-    Addresses userAddresses = addressMap.get(authentication.userId);
-
-    if (userAddresses == null)
-      userAddresses = new Addresses(new ArrayList<Address>(), authentication);
-
-    return userAddresses;
-*/
-    return null;
   }
 
   public Response addAddress(Request request) {
@@ -75,20 +62,6 @@ public class UserAddressesHandler implements WCSHandler {
     Address address = addressMap.get(addressId);
     if (address == null) return new Response(404, null);
     return new Response(200, new GetAddressResponse(address));
-  }
-
-  public Response updateAddress(String storeName, Address address) {
-/*
-    Addresses userAddresses = addressMap.get(authentication.userId);
-    for (Iterator<Address> iterator = userAddresses.getAddresses().iterator(); iterator.hasNext(); ) {
-      Address existingAddress = iterator.next();
-      if (existingAddress.addressId.equals(address.addressId))
-        iterator.remove();
-    }
-    userAddresses.addAddress(address);
-    return new AddressOperationResult(true, "", address.addressId);
-*/
-    return null;
   }
 
   @Override
