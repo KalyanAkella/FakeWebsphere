@@ -1,10 +1,13 @@
 package com.morrisons.wcs;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Request {
   private Map<String, String> queryParameters;
+  private String content;
+  private String contentType;
 
   public Request() {
     queryParameters = new HashMap<String, String>();
@@ -18,21 +21,14 @@ public class Request {
     queryParameters.put(key, value);
   }
 
-  public static Request fromRequestParams(String queryString, Map<String, String[]> parameterMap) {
-    Request request = new Request();
-    request.setFromQueryParams(queryString);
-    request.setFromParameterMap(parameterMap);
-    return request;
-  }
-
-  private void setFromParameterMap(Map<String, String[]> parameterMap) {
+  public void setFromParameterMap(Map<String, String[]> parameterMap) {
     if (parameterMap == null) return;
     for (String paramKey : parameterMap.keySet()) {
       put(paramKey, parameterMap.get(paramKey)[0]);
     }
   }
 
-  private void setFromQueryParams(String queryString) {
+  public void setFromQueryParams(String queryString) {
     if (queryString == null) return;
     String[] params = queryString.split("&");
     for (String param : params) {
@@ -43,5 +39,29 @@ public class Request {
 
   public boolean contains(String key) {
     return queryParameters.containsKey(key);
+  }
+
+  public void setFromInputStream(InputStream inputStream) throws IOException {
+    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+    try {
+      String line;
+      StringBuilder buffer = new StringBuilder();
+      while ((line = bufferedReader.readLine()) != null) buffer.append(line);
+      this.content = buffer.toString();
+    } finally {
+      bufferedReader.close();
+    }
+  }
+
+  public String getContent() {
+    return content;
+  }
+
+  public void setContentType(String contentType) {
+    this.contentType = contentType;
+  }
+
+  public String getContentType() {
+    return contentType;
   }
 }
