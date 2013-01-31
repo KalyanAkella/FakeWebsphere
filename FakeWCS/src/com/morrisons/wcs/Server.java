@@ -2,6 +2,7 @@ package com.morrisons.wcs;
 
 import com.morrisons.wcs.addresses.UserAddressesHandler;
 import com.morrisons.wcs.carts.CartHandler;
+import com.morrisons.wcs.carts.GetCartHandler;
 import com.morrisons.wcs.deliveryTypes.ShippingOptionsHandler;
 import com.morrisons.wcs.espots.ESpotHandler;
 import com.morrisons.wcs.inventory.InventoryHandler;
@@ -29,6 +30,7 @@ public class Server extends AbstractHandler {
     handlerMap.put("/ShippingOptionsHandler", new ShippingOptionsHandler());
     handlerMap.put("/CartHandler", new CartHandler());
     handlerMap.put("/InventoryHandler", new InventoryHandler());
+    handlerMap.put("/GetCartHandler", new GetCartHandler());
   }
 
   @Override

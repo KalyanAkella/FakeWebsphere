@@ -32,6 +32,7 @@ public class Request {
     if (queryString == null) return;
     String[] params = queryString.split("&");
     for (String param : params) {
+      if (param.isEmpty()) continue;
       String[] comps = param.split("=");
       put(comps[0], comps[1]);
     }
